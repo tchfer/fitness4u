@@ -7,7 +7,7 @@ export class AuthService {
   public authChange = new Subject<boolean>();
   private user: User;
 
-  registerUser(authData: AuthData) {
+  public registerUser(authData: AuthData) {
     this.user = {
       email: authData.email,
       userId: Math.round(Math.random() * 10000).toString()
@@ -15,7 +15,7 @@ export class AuthService {
     this.authChange.next(true);
   }
 
-  login(authData: AuthData) {
+  public login(authData: AuthData) {
     this.user = {
       email: authData.email,
       userId: Math.round(Math.random() * 10000).toString()
@@ -23,16 +23,16 @@ export class AuthService {
     this.authChange.next(true);
   }
 
-  logout() {
+  public logout() {
     this.user = null;
     this.authChange.next(false);
   }
 
-  getUser() {
+  public getUser() {
     return { ...this.user };
   }
 
-  isAuth() {
+  public isAuth() {
     return this.user !== null;
   }
 }
