@@ -10,10 +10,10 @@ export class NewTrainingComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
-  onStartTraining() {
+  public onStartTraining(): void {
     this.trainingStart.emit();
   }
 
