@@ -15,26 +15,26 @@ export class TrainingService {
   private exercises: Exercise[] = [];
 
 
-  getAvailableExercises() {
+  public getAvailableExercises(): Array<Exercise> {
     return this.availableExercises.slice();
   }
 
-  startExercise(selectedId: string) {
+  public startExercise(selectedId: string): void {
     this.runningExercise = this.availableExercises.find(ex => ex.id === selectedId);
     this.exerciseChanged.next({...this.runningExercise});
   }
 
-  completeExercise() {
+  public completeExercise(): void {
     this.exercises.push( { ...this.runningExercise, date: new Date(), state: 'completed' } );
     this.runningExercise = null;
     this.exerciseChanged.next(null);
   }
 
-  cancelExercise(progress: number) {
+  public cancelExercise(progress: number): void {
     this.exercises.push({
       ...this.runningExercise,
       duration: this.runningExercise.duration * (progress / 100),
-      calories: this.runningExercise.duration * (progress / 100),
+      calories: this.runningExercise.calories * (progress / 100),
       date: new Date(),
       state: 'cancelled'
     });
@@ -42,7 +42,12 @@ export class TrainingService {
     this.exerciseChanged.next(null);
   }
 
-  getRunningExercise() {
+  public getRunningExercise(): any {
     return { ...this.runningExercise };
   }
+
+  public getCompletedOrCancelledExercises(): Array<Exercise> {
+    return this.exercises.slice();
+  }
+
 }
