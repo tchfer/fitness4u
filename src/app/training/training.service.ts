@@ -17,7 +17,7 @@ export class TrainingService {
   private exercises: Exercise[] = [];
 
   constructor(private db: AngularFirestore) {}
-  public fetchAvailableExercises() {
+  public fetchAvailableExercises(): void {
     this.db
       .collection('availableExercises')
       .snapshotChanges()
@@ -45,13 +45,13 @@ export class TrainingService {
   }
 
   public completeExercise(): void {
-    this.exercises.push( { ...this.runningExercise, date: new Date(), state: 'completed' } );
+    this.addDataToDatabase({ ...this.runningExercise, date: new Date(), state: 'completed' } );
     this.runningExercise = null;
     this.exerciseChanged.next(null);
   }
 
   public cancelExercise(progress: number): void {
-    this.exercises.push({
+    this.addDataToDatabase({
       ...this.runningExercise,
       duration: this.runningExercise.duration * (progress / 100),
       calories: this.runningExercise.calories * (progress / 100),
@@ -68,6 +68,10 @@ export class TrainingService {
 
   public getCompletedOrCancelledExercises(): Array<Exercise> {
     return this.exercises.slice();
+  }
+
+  private addDataToDatabase(exercise: Exercise): void {
+    this.db.collection('finishedExercises').add(exercise);
   }
 
 }
