@@ -17,11 +17,10 @@ export class AuthService {
     private router: Router,
     private angularFireAuth: AngularFireAuth,
     private trainingService: TrainingService,
-    private snackBar: MatSnackBar,
     private uiService: UiService
     ) {}
 
-  initAuthListener() {
+  public initAuthListener(): void {
     this.angularFireAuth.authState.subscribe(user => {
       if (user) {
         this.isAuthenticated = true;
@@ -36,7 +35,7 @@ export class AuthService {
     });
   }
 
-  public registerUser(authData: AuthData) {
+  public registerUser(authData: AuthData): void {
     this.uiService.loadingStateChanged.next(true);
     this.angularFireAuth.createUserWithEmailAndPassword(
       authData.email,
@@ -46,9 +45,7 @@ export class AuthService {
       })
       .catch (error => {
         this.uiService.loadingStateChanged.next(false);
-        this.snackBar.open(error.message, null, {
-          duration: 3000
-        });
+        this.uiService.showSnackbar(error.message, null, 3000);
       });
   }
 
@@ -62,13 +59,11 @@ export class AuthService {
       })
       .catch (error => {
         this.uiService.loadingStateChanged.next(false);
-        this.snackBar.open(error.message, null, {
-          duration: 3000
-        });
+        this.uiService.showSnackbar(error.message, null, 3000);
       });
   }
 
-  public logout() {
+  public logout(): void {
     this.angularFireAuth.signOut();
   }
 

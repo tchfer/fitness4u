@@ -1,5 +1,16 @@
+import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs/Subject';
 
+@Injectable()
 export class UiService {
-  loadingStateChanged = new Subject<boolean>();
+  public loadingStateChanged = new Subject<boolean>();
+
+  constructor(private snackbar: MatSnackBar) {}
+
+  public showSnackbar(message, action, duration): void {
+    this.snackbar.open(message, action, {
+      duration
+    });
+  }
 }
