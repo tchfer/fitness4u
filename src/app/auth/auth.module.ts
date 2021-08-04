@@ -8,7 +8,7 @@ import { MaterialModule } from '../material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
-  declarations: [SignupComponent, LoginComponent,],
+  declarations: [SignupComponent, LoginComponent],
   imports: [
     CommonModule,
     FormsModule,
