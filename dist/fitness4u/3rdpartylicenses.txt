@@ -343,6 +343,9 @@ Apache-2.0
 @firebase/webchannel-wrapper
 Apache-2.0
 
+@ngrx/store
+MIT
+
 core-js
 MIT
 Copyright (c) 2014-2021 Denis Pushkarev
